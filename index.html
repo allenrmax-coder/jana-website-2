@@ -145,7 +145,12 @@
     }
     .hero-slide::after {
       content:''; position:absolute; inset:0;
-      background:linear-gradient(to bottom,rgba(20,14,10,.18) 0%,rgba(20,14,10,.08) 40%,rgba(20,14,10,.56) 100%);
+      background:
+        linear-gradient(to bottom,
+          rgba(10,7,5,.52) 0%,
+          rgba(10,7,5,.38) 35%,
+          rgba(10,7,5,.55) 70%,
+          rgba(10,7,5,.70) 100%);
     }
     .hero-content {
       position:relative; z-index:2;
@@ -155,16 +160,19 @@
     .hero-tag {
       font-size:10px; letter-spacing:.22em; text-transform:uppercase; font-weight:500;
       color:var(--champagne-lt); margin-bottom:22px; display:block;
+      text-shadow:0 1px 8px rgba(0,0,0,.5);
     }
     .hero-title {
       font-family:'Cormorant Garamond', serif;
       font-size:clamp(52px, 8.5vw, 108px);
       font-weight:300; line-height:1.0; margin-bottom:22px;
+      text-shadow:0 2px 24px rgba(0,0,0,.55), 0 1px 4px rgba(0,0,0,.35);
     }
     .hero-title em { font-style:italic; color:var(--champagne-lt); }
     .hero-sub {
       font-size:12.5px; letter-spacing:.06em; font-weight:300;
-      color:rgba(253,251,248,.82); margin-bottom:40px; line-height:1.7;
+      color:rgba(253,251,248,.92); margin-bottom:40px; line-height:1.7;
+      text-shadow:0 1px 10px rgba(0,0,0,.5);
     }
     .hero-btns {
       display:flex; gap:14px; justify-content:center; flex-wrap:wrap;
@@ -615,11 +623,11 @@
 <!-- HERO -->
 <section class="hero">
   <div class="hero-slides" id="heroSlides">
-    <div class="hero-slide active" style="background-image:url('https://www.modeonmainbymara.com/cdn/shop/files/IMG_4716.webp?v=1773714256&width=1600')"></div>
-    <div class="hero-slide" style="background-image:url('https://www.modeonmainbymara.com/cdn/shop/files/IMG_4712.webp?v=1773713450&width=1600')"></div>
-    <div class="hero-slide" style="background-image:url('https://www.modeonmainbymara.com/cdn/shop/files/IMG_4708.webp?v=1773713919&width=1600')"></div>
-    <div class="hero-slide" style="background-image:url('https://www.modeonmainbymara.com/cdn/shop/files/IMG_4046.webp?v=1771523619&width=1600')"></div>
-    <div class="hero-slide" style="background-image:url('https://www.modeonmainbymara.com/cdn/shop/files/1080x1350.jpg?v=1771015119&width=1600')"></div>
+    <div class="hero-slide active" style="background-image:url('https://www.modeonmainbymara.com/cdn/shop/files/IMG_4716.webp?v=1773714256&width=3000')"></div>
+    <div class="hero-slide" style="background-image:url('https://www.modeonmainbymara.com/cdn/shop/files/IMG_4712.webp?v=1773713450&width=3000')"></div>
+    <div class="hero-slide" style="background-image:url('https://www.modeonmainbymara.com/cdn/shop/files/IMG_4708.webp?v=1773713919&width=3000')"></div>
+    <div class="hero-slide" style="background-image:url('https://www.modeonmainbymara.com/cdn/shop/files/IMG_4046.webp?v=1771523619&width=3000')"></div>
+    <div class="hero-slide" style="background-image:url('https://www.modeonmainbymara.com/cdn/shop/files/1080x1350.jpg?v=1771015119&width=3000')"></div>
   </div>
   <div class="hero-content">
     <span class="hero-tag" id="heroTag">Old Town Fairfax, Virginia</span>
