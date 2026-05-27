@@ -724,6 +724,104 @@
     /* ── BATH & BODY ─────────────────────────────── */
     .bath-section { background:var(--warm-white); }
 
+    /* ── LOOKBOOK (3-col editorial) ───────────────── */
+    .lookbook-section {
+      background:var(--warm-white);
+      padding:90px 5vw 110px;
+    }
+    .lookbook-head {
+      max-width:1320px; margin:0 auto 50px;
+      display:flex; justify-content:space-between; align-items:flex-end;
+      gap:40px; flex-wrap:wrap;
+    }
+    .lookbook-head .lh-l {
+      display:flex; flex-direction:column;
+    }
+    .lookbook-head .lh-tag {
+      font-family:'Cormorant Garamond', serif;
+      font-size:12px; letter-spacing:.32em; text-transform:uppercase;
+      font-style:italic; color:var(--taupe);
+      display:flex; align-items:center; gap:14px;
+      margin-bottom:14px;
+    }
+    .lookbook-head .lh-tag::before {
+      content:''; width:38px; height:1px; background:var(--taupe);
+    }
+    .lookbook-head h2 {
+      font-family:'Cormorant Garamond', serif;
+      font-size:clamp(36px, 4vw, 56px); font-weight:400; line-height:1.05;
+      letter-spacing:-.005em;
+    }
+    .lookbook-head h2 em { font-style:italic; }
+    .lookbook-head .lh-r {
+      font-size:12.5px; color:var(--taupe); line-height:1.8;
+      font-weight:300; max-width:300px;
+      padding-bottom:8px;
+    }
+    .lookbook-grid {
+      display:grid; grid-template-columns:1fr 1fr 1fr;
+      gap:32px; max-width:1320px; margin:0 auto;
+      align-items:start;
+    }
+    .lb-img {
+      position:relative; aspect-ratio:3/4.2; overflow:hidden;
+      background:var(--sand);
+    }
+    .lb-img img {
+      width:100%; height:100%; object-fit:cover;
+      transition:transform 1s cubic-bezier(.2,.6,.2,1);
+    }
+    .lb-img:hover img { transform:scale(1.05); }
+    .lb-img .lb-caption {
+      position:absolute; bottom:0; left:0; right:0;
+      padding:14px 16px;
+      background:linear-gradient(to top, rgba(20,14,10,.55), transparent);
+      color:var(--warm-white);
+      display:flex; justify-content:space-between; align-items:baseline;
+      gap:10px;
+      opacity:0; transform:translateY(8px);
+      transition:opacity .4s ease, transform .4s ease;
+    }
+    .lb-img:hover .lb-caption { opacity:1; transform:translateY(0); }
+    .lb-img .lb-caption .lb-look {
+      font-size:9px; letter-spacing:.22em; text-transform:uppercase; font-weight:500;
+    }
+    .lb-img .lb-caption .lb-piece {
+      font-family:'Cormorant Garamond', serif; font-style:italic; font-size:14px;
+    }
+    .lookbook-mid {
+      display:flex; flex-direction:column;
+      gap:32px;
+    }
+    .lookbook-mid .lb-text {
+      padding:36px 24px 24px;
+      text-align:center;
+    }
+    .lookbook-mid .lb-text .kicker {
+      font-size:10.5px; letter-spacing:.32em; text-transform:uppercase;
+      font-weight:600; color:var(--espresso); display:block; margin-bottom:18px;
+    }
+    .lookbook-mid .lb-text p {
+      font-size:13.5px; color:var(--taupe); line-height:1.85;
+      font-weight:300; margin-bottom:22px;
+    }
+    .lookbook-mid .lb-text .lb-cta {
+      font-size:10.5px; letter-spacing:.22em; text-transform:uppercase;
+      font-weight:600; color:var(--espresso); text-decoration:none;
+      border-bottom:1px solid var(--espresso); padding-bottom:3px;
+      display:inline-block;
+      transition:color .3s, border-color .3s;
+    }
+    .lookbook-mid .lb-text .lb-cta:hover {
+      color:var(--rose); border-color:var(--rose);
+    }
+    .lookbook-mid .lb-img { aspect-ratio:3/3.4; }
+
+    @media (max-width:900px) {
+      .lookbook-grid { grid-template-columns:1fr; gap:20px; }
+      .lookbook-mid { gap:20px; }
+    }
+
     /* ── STORY (founder feature) ──────────────────── */
     .story-section { background:var(--cream); }
     .story-inner {
@@ -1282,6 +1380,50 @@
       </div>
       <a href="https://www.eventbrite.com/o/mode-on-main-by-mara" class="btn-champagne" target="_blank" rel="noopener">Reserve Your Spot &nbsp;<i class="fas fa-external-link-alt"></i></a>
     </div>
+  </div>
+</section>
+
+<!-- LOOKBOOK -->
+<section class="lookbook-section" id="lookbook">
+  <div class="lookbook-head">
+    <div class="lh-l">
+      <span class="lh-tag">The Lookbook · Vol. 01</span>
+      <h2>On The <em>Floor</em> This Week.</h2>
+    </div>
+    <div class="lh-r">Styled, layered, and lived in — the way Mara wears it. Each look is shoppable at the boutique and online.</div>
+  </div>
+
+  <div class="lookbook-grid">
+    <a href="https://www.modeonmainbymara.com/collections/new-pieces" class="lb-img" target="_blank" rel="noopener">
+      <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=900&h=1260&q=80" alt="Look 01 — Vintage layered with new" loading="lazy">
+      <div class="lb-caption">
+        <span class="lb-look">Look · 01</span>
+        <span class="lb-piece">The Layered Edit</span>
+      </div>
+    </a>
+
+    <div class="lookbook-mid">
+      <div class="lb-text">
+        <span class="kicker">This Season's Edit</span>
+        <p>Soft textures, autumn neutrals, and the kind of pieces that earn a place in your closet. Pulled straight from the floor — see them on, see them styled, then take them home.</p>
+        <a href="https://www.modeonmainbymara.com/collections/all" class="lb-cta" target="_blank" rel="noopener">Shop The Lookbook</a>
+      </div>
+      <a href="https://www.modeonmainbymara.com/collections/vintage-pre-loved" class="lb-img" target="_blank" rel="noopener">
+        <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=900&h=1020&q=80" alt="Look 02 — Vintage finds" loading="lazy">
+        <div class="lb-caption">
+          <span class="lb-look">Look · 02</span>
+          <span class="lb-piece">Vintage Reworked</span>
+        </div>
+      </a>
+    </div>
+
+    <a href="https://www.modeonmainbymara.com/collections/all" class="lb-img" target="_blank" rel="noopener">
+      <img src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&fit=crop&w=900&h=1260&q=80" alt="Look 03 — Modern silhouettes" loading="lazy">
+      <div class="lb-caption">
+        <span class="lb-look">Look · 03</span>
+        <span class="lb-piece">Modern Silhouettes</span>
+      </div>
+    </a>
   </div>
 </section>
 
