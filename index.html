@@ -271,6 +271,19 @@
     .fs-text-inner .section-title { margin-bottom:12px; }
     .fs-text-inner .section-sub { margin-bottom:32px; }
 
+    /* ── FEATURE SOLO (text-only, full width) ──────── */
+    .feature-solo {
+      background:var(--warm-white);
+      padding:120px 6vw;
+      text-align:center;
+    }
+    .feature-solo .fs-text-inner {
+      max-width:620px; margin:0 auto;
+    }
+    .feature-solo .section-tag { display:block; margin-bottom:18px; }
+    .feature-solo .section-title { margin-bottom:14px; }
+    .feature-solo .section-sub { margin-bottom:36px; }
+
     /* ── SALE BANNER (full-bleed) ───────────────────── */
     .sale-banner {
       position:relative; min-height:340px;
@@ -737,28 +750,22 @@
 
   <div class="hero-content">
     <div class="h-left">
-      <span class="hero-tag" id="heroTag">Step Into Summer</span>
-      <h1 class="hero-title" id="heroTitle">Style That <em>Speaks.</em><br>Stories That Stay.</h1>
+      <span class="hero-tag" id="heroTag">Old Town Fairfax</span>
+      <h1 class="hero-title" id="heroTitle">Mode on <em>Main</em><br>Boutique.</h1>
       <div class="hero-btn-row" id="heroBtns">
-        <a href="https://www.modeonmainbymara.com/collections/new-pieces" class="btn-light" target="_blank" rel="noopener">Shop New In</a>
-        <a href="https://www.modeonmainbymara.com/collections/vintage-pre-loved" class="btn-outline-light" target="_blank" rel="noopener">Vintage &amp; Pre-Loved</a>
+        <a href="https://www.modeonmainbymara.com/" class="btn-light" target="_blank" rel="noopener">Shop the Boutique</a>
       </div>
     </div>
   </div>
 </section>
 
-<!-- 2. FEATURED COLLECTION — side-by-side -->
-<section class="feature-side">
-  <div class="fs-img mask-img reveal-left">
-    <img src="images/lookbook/look-01.webp" alt="The New Edit — Mode on Main" loading="lazy">
-  </div>
-  <div class="fs-text">
-    <div class="fs-text-inner">
-      <span class="section-tag">The New Edit</span>
-      <h2 class="section-title">Summer's <em>Quietest</em><br>Power Pieces.</h2>
-      <p class="section-sub">Easy linens, hand-printed silks, and the bag you'll grab on every grocery run. Fresh on the floor this week and only at the boutique.</p>
-      <a href="https://www.modeonmainbymara.com/collections/new-pieces" class="btn-dark" target="_blank" rel="noopener">Shop Now</a>
-    </div>
+<!-- 2. FEATURED COLLECTION — text-only -->
+<section class="feature-solo">
+  <div class="fs-text-inner">
+    <span class="section-tag">The New Edit</span>
+    <h2 class="section-title">Summer's <em>Quietest</em><br>Power Pieces.</h2>
+    <p class="section-sub">Easy linens, hand-printed silks, and the bag you'll grab on every grocery run. Fresh on the floor this week and only at the boutique.</p>
+    <a href="https://www.modeonmainbymara.com/collections/new-pieces" class="btn-dark" target="_blank" rel="noopener">Shop Now</a>
   </div>
 </section>
 
