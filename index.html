@@ -402,7 +402,7 @@
     }
     .f3-card:hover .f3-cta { color:var(--rose); border-color:var(--rose); }
 
-    /* ── VIDEO SECTION ─────────────────────────────── */
+    /* ── VIDEO SECTION (IG reels grid) ──────────────── */
     .video-section {
       background:var(--cream);
       padding:100px 5vw 110px;
@@ -411,43 +411,37 @@
       max-width:780px; margin:0 auto 50px;
       text-align:center;
     }
-    .video-frame {
-      position:relative; max-width:1140px; margin:0 auto;
-      aspect-ratio:16/9; overflow:hidden;
+    .reels-grid {
+      display:grid; grid-template-columns:repeat(3, 1fr);
+      gap:28px; max-width:1180px; margin:0 auto;
+    }
+    .reel-card {
+      position:relative; overflow:hidden;
       background:var(--espresso);
-      box-shadow:0 30px 80px rgba(20,14,10,.18);
+      aspect-ratio:9/16;
+      box-shadow:0 24px 60px rgba(20,14,10,.16);
+      transition:transform .5s ease, box-shadow .5s ease;
     }
-    .video-frame video,
-    .video-frame iframe {
-      width:100%; height:100%; display:block;
-      object-fit:cover;
+    .reel-card:hover {
+      transform:translateY(-6px);
+      box-shadow:0 32px 80px rgba(20,14,10,.22);
     }
-    .video-frame .video-poster {
-      position:absolute; inset:0;
-      background-size:cover; background-position:center;
-      transition:opacity .6s ease;
+    .reel-card iframe {
+      width:100%; height:100%; display:block; border:0;
     }
-    .video-frame .play-btn {
-      position:absolute; top:50%; left:50%;
-      transform:translate(-50%,-50%);
-      width:88px; height:88px; border-radius:50%;
-      background:rgba(253,251,248,.95); color:var(--espresso);
-      display:flex; align-items:center; justify-content:center;
-      font-size:22px; padding-left:5px;
-      cursor:pointer; border:none;
-      transition:background .3s, transform .3s, color .3s;
-      z-index:3;
-    }
-    .video-frame .play-btn:hover {
-      background:var(--rose); color:var(--warm-white);
-      transform:translate(-50%,-50%) scale(1.06);
-    }
-    .video-frame .video-tag {
-      position:absolute; top:24px; left:24px; z-index:3;
-      font-size:10px; letter-spacing:.28em; text-transform:uppercase;
+    .reel-tag {
+      position:absolute; top:14px; left:14px; z-index:5;
+      font-size:9.5px; letter-spacing:.24em; text-transform:uppercase;
       font-weight:600; color:var(--warm-white);
-      padding:7px 12px; background:rgba(20,14,10,.62);
+      padding:6px 11px; background:rgba(20,14,10,.62);
       backdrop-filter:blur(4px);
+      pointer-events:none;
+    }
+    .reels-foot {
+      text-align:center; margin-top:42px;
+    }
+    @media (max-width:900px) {
+      .reels-grid { grid-template-columns:1fr; gap:22px; max-width:420px; }
     }
 
     /* ── PRODUCT GRID (4-col) ──────────────────────── */
@@ -879,20 +873,29 @@
   </div>
 </section>
 
-<!-- 6. STYLED BY MARA — VIDEO -->
+<!-- 6. STYLED BY MARA — IG REELS -->
 <section class="video-section">
   <div class="video-head">
     <span class="section-tag">Styled By Mara</span>
     <h2 class="section-title reveal">Watch The <em>Looks</em>, Shop The Pieces.</h2>
-    <p class="section-sub reveal">A look inside the boutique — how Mara styles every piece on the floor.</p>
+    <p class="section-sub reveal">Straight from the boutique floor — how Mara styles every piece. Tap a reel to watch.</p>
   </div>
-  <div class="video-frame reveal">
-    <span class="video-tag">Now Playing · Look 01</span>
-    <video id="storyVideo" poster="images/lookbook/look-01.webp" controls preload="metadata" playsinline>
-      <source src="" type="video/mp4">
-      <!-- Video URL will be added once user provides MP4 -->
-    </video>
-    <button class="play-btn" id="playBtn" aria-label="Play video"><i class="fas fa-play"></i></button>
+  <div class="reels-grid">
+    <div class="reel-card reveal">
+      <span class="reel-tag">Look · 01</span>
+      <iframe src="https://www.instagram.com/p/DXug2OyjNXc/embed/?cr=1" allowfullscreen scrolling="no" allowtransparency loading="lazy" title="Mode on Main — Look 01"></iframe>
+    </div>
+    <div class="reel-card reveal">
+      <span class="reel-tag">Look · 02</span>
+      <iframe src="https://www.instagram.com/p/DXzf0BRM2Gy/embed/?cr=1" allowfullscreen scrolling="no" allowtransparency loading="lazy" title="Mode on Main — Look 02"></iframe>
+    </div>
+    <div class="reel-card reveal">
+      <span class="reel-tag">Look · 03</span>
+      <iframe src="https://www.instagram.com/p/DXrs20yjEDu/embed/?cr=1" allowfullscreen scrolling="no" allowtransparency loading="lazy" title="Mode on Main — Look 03"></iframe>
+    </div>
+  </div>
+  <div class="reels-foot reveal">
+    <a href="https://www.instagram.com/modeonmainbymara" class="link-under" target="_blank" rel="noopener">More On Instagram <i class="fas fa-arrow-right"></i></a>
   </div>
 </section>
 
@@ -1356,21 +1359,14 @@
     });
   }
 
-  /* ── VIDEO PLAY BUTTON ────────────────────────────── */
-  const playBtn = document.getElementById('playBtn');
-  const storyVideo = document.getElementById('storyVideo');
-  if (playBtn && storyVideo) {
-    playBtn.addEventListener('click', () => {
-      if (storyVideo.querySelector('source').getAttribute('src')) {
-        storyVideo.play();
-        playBtn.style.display = 'none';
-      } else {
-        playBtn.innerHTML = '<i class="fas fa-clock"></i>';
-        playBtn.style.fontSize = '20px';
-        playBtn.title = 'Video URL not yet set';
-      }
-    });
-  }
+  /* ── REELS GRID STAGGER ───────────────────────────── */
+  gsap.fromTo('.reel-card',
+    { opacity: 0, y: 40 },
+    {
+      scrollTrigger: { trigger: '.reels-grid', start: 'top 88%', toggleActions: 'play none none none' },
+      opacity: 1, y: 0, duration: 0.85, stagger: 0.14, ease: 'power3.out'
+    }
+  );
 
   /* ── NEWSLETTER SUBMIT ────────────────────────────── */
   function handleSubscribe(e) {
