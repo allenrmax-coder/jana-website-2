@@ -178,56 +178,142 @@
     }
     nav.scrolled .nav-toggle span { background:var(--espresso); }
 
-    /* ── HERO ────────────────────────────────────── */
+    /* ── HERO (editorial) ────────────────────────── */
     .hero {
-      position:relative; height:100vh; min-height:580px;
+      position:relative; height:100vh; min-height:640px;
       overflow:hidden;
-      display:flex; align-items:center; justify-content:center;
+      display:flex; align-items:flex-end;
+      padding:0 5vw 8vh;
     }
-    .hero-slides { position:absolute; inset:0; }
+    .hero-slides { position:absolute; inset:0; z-index:0; }
     .hero-slide {
       position:absolute; inset:0;
       background-size:cover; background-position:center;
-      opacity:0; transition:opacity 1.5s ease;
+      opacity:0; transition:opacity 1.6s ease;
     }
-    .hero-slide.active { opacity:1; animation:ken-burns 7s ease-out forwards; }
+    .hero-slide.active { opacity:1; animation:ken-burns 9s ease-out forwards; }
     @keyframes ken-burns {
-      from { transform:scale(1); }
-      to   { transform:scale(1.06); }
+      from { transform:scale(1.02) translate3d(0,0,0); }
+      to   { transform:scale(1.10) translate3d(-1.2%,-1%,0); }
     }
     .hero-slide::after {
       content:''; position:absolute; inset:0;
       background:
+        linear-gradient(to right,
+          rgba(10,7,5,.62) 0%,
+          rgba(10,7,5,.34) 45%,
+          rgba(10,7,5,.20) 75%,
+          rgba(10,7,5,.40) 100%),
         linear-gradient(to bottom,
-          rgba(10,7,5,.52) 0%,
-          rgba(10,7,5,.38) 35%,
-          rgba(10,7,5,.55) 70%,
-          rgba(10,7,5,.70) 100%);
+          rgba(10,7,5,.28) 0%,
+          rgba(10,7,5,.10) 50%,
+          rgba(10,7,5,.62) 100%);
     }
+
+    /* Vertical right-side label */
+    .hero-vertical {
+      position:absolute; right:24px; top:50%; transform:translateY(-50%) rotate(180deg);
+      writing-mode:vertical-rl;
+      font-size:10px; letter-spacing:.32em; text-transform:uppercase;
+      font-weight:500; color:rgba(253,251,248,.7);
+      z-index:3;
+    }
+    .hero-vertical .dot {
+      display:inline-block; width:4px; height:4px; border-radius:50%;
+      background:var(--champagne-lt); margin:0 10px; vertical-align:middle;
+    }
+
+    /* Top-right mini brand mark */
+    .hero-mark {
+      position:absolute; top:96px; right:5vw;
+      font-family:'Cormorant Garamond', serif;
+      font-size:13px; letter-spacing:.2em; text-transform:uppercase;
+      color:rgba(253,251,248,.78); z-index:3;
+      display:flex; align-items:center; gap:14px;
+    }
+    .hero-mark::before {
+      content:''; width:36px; height:1px; background:rgba(253,251,248,.5);
+    }
+
     .hero-content {
       position:relative; z-index:2;
-      text-align:center; color:var(--warm-white);
-      max-width:720px; padding:0 24px;
+      text-align:left; color:var(--warm-white);
+      max-width:880px; padding:0;
+    }
+    .hero-kicker {
+      display:flex; align-items:center; gap:14px; margin-bottom:26px;
+    }
+    .hero-kicker::before {
+      content:''; width:54px; height:1px;
+      background:var(--champagne-lt);
     }
     .hero-tag {
-      font-size:10px; letter-spacing:.22em; text-transform:uppercase; font-weight:500;
-      color:var(--champagne-lt); margin-bottom:22px; display:block;
-      text-shadow:0 1px 8px rgba(0,0,0,.5);
+      font-size:10.5px; letter-spacing:.28em; text-transform:uppercase; font-weight:500;
+      color:var(--champagne-lt);
+      text-shadow:0 1px 8px rgba(0,0,0,.4);
     }
     .hero-title {
       font-family:'Cormorant Garamond', serif;
-      font-size:clamp(52px, 8.5vw, 108px);
-      font-weight:300; line-height:1.0; margin-bottom:22px;
-      text-shadow:0 2px 24px rgba(0,0,0,.55), 0 1px 4px rgba(0,0,0,.35);
+      font-size:clamp(56px, 9.5vw, 140px);
+      font-weight:300; line-height:.96; margin-bottom:30px;
+      letter-spacing:-.01em;
+      text-shadow:0 2px 28px rgba(0,0,0,.45), 0 1px 4px rgba(0,0,0,.3);
     }
-    .hero-title em { font-style:italic; color:var(--champagne-lt); }
+    .hero-title em { font-style:italic; color:var(--champagne-lt); font-weight:300; }
     .hero-sub {
-      font-size:12.5px; letter-spacing:.06em; font-weight:300;
-      color:rgba(253,251,248,.92); margin-bottom:40px; line-height:1.7;
+      font-size:13px; letter-spacing:.04em; font-weight:300;
+      color:rgba(253,251,248,.88); margin-bottom:40px; line-height:1.75;
+      max-width:480px;
       text-shadow:0 1px 10px rgba(0,0,0,.5);
     }
     .hero-btns {
-      display:flex; gap:14px; justify-content:center; flex-wrap:wrap;
+      display:flex; gap:14px; flex-wrap:wrap;
+    }
+
+    /* Bottom metadata row */
+    .hero-meta {
+      position:absolute; left:5vw; right:5vw; bottom:3vh;
+      display:flex; justify-content:space-between; align-items:flex-end;
+      z-index:3; pointer-events:none;
+    }
+    .hero-meta-item {
+      font-size:10px; letter-spacing:.22em; text-transform:uppercase;
+      color:rgba(253,251,248,.55); font-weight:500;
+    }
+    .hero-meta-item strong {
+      display:block; font-weight:500; color:var(--warm-white);
+      font-family:'Cormorant Garamond', serif; font-style:italic;
+      font-size:18px; letter-spacing:.02em; text-transform:none; margin-top:4px;
+    }
+    .hero-counter {
+      font-family:'Cormorant Garamond', serif;
+      font-size:14px; letter-spacing:.18em;
+      color:rgba(253,251,248,.7);
+      pointer-events:auto;
+    }
+    .hero-counter .current { color:var(--warm-white); }
+    .hero-counter .sep {
+      display:inline-block; width:28px; height:1px;
+      background:rgba(253,251,248,.4); vertical-align:middle; margin:0 10px;
+    }
+
+    /* Scroll cue */
+    .hero-scroll {
+      position:absolute; left:5vw; bottom:3vh;
+      font-size:9.5px; letter-spacing:.32em; text-transform:uppercase;
+      color:rgba(253,251,248,.6); font-weight:500;
+      display:flex; align-items:center; gap:12px;
+      z-index:3;
+    }
+    .hero-scroll::after {
+      content:''; width:42px; height:1px;
+      background:linear-gradient(to right, var(--champagne-lt), transparent);
+      animation:scroll-pulse 2.4s ease-in-out infinite;
+      transform-origin:left;
+    }
+    @keyframes scroll-pulse {
+      0%,100% { transform:scaleX(.4); opacity:.6; }
+      50%     { transform:scaleX(1); opacity:1; }
     }
     .btn-light {
       font-size:10.5px; letter-spacing:.14em; text-transform:uppercase; font-weight:600;
@@ -245,15 +331,22 @@
     .btn-outline-light:hover { border-color:var(--warm-white); background:rgba(253,251,248,.08); }
 
     .hero-dots {
-      position:absolute; bottom:30px; left:50%; transform:translateX(-50%);
-      display:flex; gap:8px; z-index:3;
+      position:absolute; bottom:3vh; left:50%; transform:translateX(-50%);
+      display:flex; gap:14px; z-index:3;
     }
     .hero-dot {
-      width:6px; height:6px; border-radius:50%;
-      background:rgba(253,251,248,.4); cursor:pointer;
-      transition:background .3s, transform .3s;
+      width:24px; height:1.5px;
+      background:rgba(253,251,248,.3); cursor:pointer;
+      transition:background .4s, width .4s;
     }
-    .hero-dot.active { background:var(--warm-white); transform:scale(1.5); }
+    .hero-dot.active { background:var(--warm-white); width:44px; }
+
+    @media (max-width:900px) {
+      .hero { padding:0 6vw 11vh; min-height:560px; }
+      .hero-mark, .hero-vertical { display:none; }
+      .hero-meta { flex-direction:column; align-items:flex-start; gap:14px; bottom:9vh; }
+      .hero-scroll { display:none; }
+    }
 
     /* ── ANNOUNCEMENT ────────────────────────────── */
     .announcement {
@@ -680,15 +773,38 @@
     <div class="hero-slide" style="background-image:url('https://www.modeonmainbymara.com/cdn/shop/files/IMG_4725.webp?v=1773713118')"></div>
     <div class="hero-slide" style="background-image:url('https://www.modeonmainbymara.com/cdn/shop/files/IMG_4724.webp?v=1773713118')"></div>
   </div>
+
+  <div class="hero-mark">Est. 2024 · Old Town Fairfax</div>
+  <div class="hero-vertical">Mode on Main <span class="dot"></span> Curated Living</div>
+
   <div class="hero-content">
-    <span class="hero-tag" id="heroTag">Old Town Fairfax, Virginia</span>
-    <h1 class="hero-title" id="heroTitle">Style That <em>Speaks.</em><br>Stories That Stay.</h1>
-    <p class="hero-sub" id="heroSub">A curated lifestyle boutique where vintage meets contemporary<br>— always authentic, never ordinary.</p>
+    <div class="hero-kicker" id="heroKicker">
+      <span class="hero-tag" id="heroTag">Winter Edit · Vol. 01</span>
+    </div>
+    <h1 class="hero-title" id="heroTitle">Style That <em>Speaks.</em><br>Stories That <em>Stay.</em></h1>
+    <p class="hero-sub" id="heroSub">A curated lifestyle boutique where vintage meets contemporary —<br>always authentic, never ordinary.</p>
     <div class="hero-btns" id="heroBtns">
-      <a href="https://www.modeonmainbymara.com/collections/new-pieces" class="btn-light" target="_blank" rel="noopener">Shop New Pieces</a>
+      <a href="https://www.modeonmainbymara.com/collections/new-pieces" class="btn-light" target="_blank" rel="noopener">Shop The Edit</a>
       <a href="https://www.modeonmainbymara.com/collections/vintage-pre-loved" class="btn-outline-light" target="_blank" rel="noopener">Vintage & Pre-Loved</a>
     </div>
   </div>
+
+  <div class="hero-scroll">Scroll</div>
+
+  <div class="hero-meta">
+    <div class="hero-meta-item">
+      Curated by
+      <strong>Jana Klavina</strong>
+    </div>
+    <div class="hero-counter" id="heroCounter">
+      <span class="current">01</span><span class="sep"></span><span class="total">04</span>
+    </div>
+    <div class="hero-meta-item" style="text-align:right;">
+      Now Open
+      <strong>10417 Main St.</strong>
+    </div>
+  </div>
+
   <div class="hero-dots" id="heroDots">
     <div class="hero-dot active"></div>
     <div class="hero-dot"></div>
@@ -1178,16 +1294,20 @@
   });
 
   /* ── HERO ENTRANCE (GSAP timeline) ───────────────── */
-  gsap.set(['#heroTag','#heroTitle','#heroSub','#heroBtns'], { y: 28, opacity: 0 });
-  gsap.timeline({ delay: 0.35 })
-    .to('#heroTag',   { opacity:1, y:0, duration:0.75, ease:'power2.out' })
-    .to('#heroTitle', { opacity:1, y:0, duration:0.85, ease:'power2.out' }, '-=0.45')
-    .to('#heroSub',   { opacity:1, y:0, duration:0.7,  ease:'power2.out' }, '-=0.45')
-    .to('#heroBtns',  { opacity:1, y:0, duration:0.65, ease:'power2.out' }, '-=0.4');
+  gsap.set(['#heroKicker','#heroTitle','#heroSub','#heroBtns'], { y: 32, opacity: 0 });
+  gsap.set('.hero-mark, .hero-vertical, .hero-meta, .hero-scroll, .hero-dots', { opacity: 0 });
+  gsap.timeline({ delay: 0.45 })
+    .to('#heroKicker', { opacity:1, y:0, duration:0.7,  ease:'power2.out' })
+    .to('#heroTitle',  { opacity:1, y:0, duration:0.95, ease:'power3.out' }, '-=0.4')
+    .to('#heroSub',    { opacity:1, y:0, duration:0.7,  ease:'power2.out' }, '-=0.55')
+    .to('#heroBtns',   { opacity:1, y:0, duration:0.65, ease:'power2.out' }, '-=0.4')
+    .to('.hero-mark, .hero-vertical', { opacity:1, duration:0.9, ease:'power2.out' }, '-=0.5')
+    .to('.hero-meta, .hero-scroll, .hero-dots', { opacity:1, duration:0.8, ease:'power2.out' }, '-=0.6');
 
   /* ── HERO SLIDESHOW ───────────────────────────────── */
   const slides = document.querySelectorAll('.hero-slide');
   const dots   = document.querySelectorAll('.hero-dot');
+  const counterCur = document.querySelector('#heroCounter .current');
   let current  = 0, timer;
 
   function goToSlide(n) {
@@ -1196,6 +1316,7 @@
     current = (n + slides.length) % slides.length;
     slides[current].classList.add('active');
     dots[current].classList.add('active');
+    if (counterCur) counterCur.textContent = String(current + 1).padStart(2, '0');
   }
   function startTimer() {
     clearInterval(timer);
