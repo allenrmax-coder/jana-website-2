@@ -14,6 +14,8 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://unpkg.com/split-type@0.3.4/umd/index.min.js"></script>
+  <script src="https://unpkg.com/lenis@1.1.14/dist/lenis.min.js"></script>
 
   <style>
     /* ── BRAND TOKENS ─────────────────────────────── */
@@ -35,13 +37,60 @@
     }
 
     *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
-    html { scroll-behavior:smooth; }
+    html.lenis, html.lenis body { height:auto; }
+    .lenis.lenis-smooth { scroll-behavior:auto !important; }
+    .lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior:contain; }
+    .lenis.lenis-stopped { overflow:clip; }
+    .lenis.lenis-smooth iframe { pointer-events:none; }
     body {
       background:var(--cream);
       color:var(--espresso);
       font-family:'Montserrat', sans-serif;
       overflow-x:hidden;
     }
+
+    /* ── CUSTOM CURSOR (desktop only) ──────────────── */
+    @media (hover:hover) and (pointer:fine) {
+      body { cursor:none; }
+      a, button, input, .cat-card, .prod-card, .nav-toggle, .hero-dot { cursor:none; }
+      .cursor-dot {
+        position:fixed; top:0; left:0; pointer-events:none; z-index:99999;
+        width:6px; height:6px; border-radius:50%;
+        background:var(--espresso);
+        mix-blend-mode:difference;
+        transform:translate(-50%,-50%);
+        transition:transform .25s ease, width .25s ease, height .25s ease, background .25s ease;
+      }
+      .cursor-ring {
+        position:fixed; top:0; left:0; pointer-events:none; z-index:99998;
+        width:36px; height:36px; border-radius:50%;
+        border:1px solid var(--espresso);
+        mix-blend-mode:difference;
+        transform:translate(-50%,-50%);
+        transition:width .35s ease, height .35s ease, border-color .25s ease, opacity .25s ease;
+      }
+      .cursor-hover .cursor-dot { width:0; height:0; }
+      .cursor-hover .cursor-ring { width:60px; height:60px; }
+    }
+
+    /* ── IMAGE MASK REVEAL ──────────────────────────── */
+    .mask-img { position:relative; overflow:hidden; }
+    .mask-img::before {
+      content:''; position:absolute; inset:0;
+      background:var(--cream);
+      transform-origin:right;
+      transition:transform 1.1s cubic-bezier(.77,0,.18,1);
+      pointer-events:none;
+      z-index:4;
+    }
+    .mask-img.revealed::before { transform:scaleX(0); }
+    .mask-img.dark::before { background:var(--espresso); }
+    .mask-img.sand::before { background:var(--sand); }
+
+    /* ── SPLIT TEXT REVEAL ──────────────────────────── */
+    .split-line { overflow:hidden; display:block; }
+    .split-line .line,
+    .split-line .word { display:inline-block; }
 
     /* ── SCROLL PROGRESS BAR ─────────────────────── */
     #bar {
@@ -1056,18 +1105,68 @@
 <script>
   gsap.registerPlugin(ScrollTrigger);
 
+  /* ── LENIS SMOOTH SCROLL ──────────────────────────── */
+  const lenis = new Lenis({
+    duration: 1.15,
+    easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+    smoothWheel: true,
+    smoothTouch: false,
+    wheelMultiplier: 1.0,
+    touchMultiplier: 1.4,
+  });
+  lenis.on('scroll', ScrollTrigger.update);
+  gsap.ticker.add((time) => { lenis.raf(time * 1000); });
+  gsap.ticker.lagSmoothing(0);
+
+  // anchor links → lenis.scrollTo so they respect smooth scroll
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', (e) => {
+      const id = a.getAttribute('href');
+      if (id.length > 1) {
+        const tgt = document.querySelector(id);
+        if (tgt) {
+          e.preventDefault();
+          lenis.scrollTo(tgt, { offset: -60, duration: 1.4 });
+        }
+      }
+    });
+  });
+
+  /* ── CUSTOM CURSOR ────────────────────────────────── */
+  const canHover = window.matchMedia('(hover:hover) and (pointer:fine)').matches;
+  if (canHover) {
+    const dot = document.createElement('div'); dot.className = 'cursor-dot';
+    const ring = document.createElement('div'); ring.className = 'cursor-ring';
+    document.body.append(dot, ring);
+    let mx = 0, my = 0, rx = 0, ry = 0;
+    window.addEventListener('mousemove', (e) => { mx = e.clientX; my = e.clientY; });
+    gsap.ticker.add(() => {
+      dot.style.transform = `translate(${mx}px, ${my}px) translate(-50%,-50%)`;
+      rx += (mx - rx) * 0.18;
+      ry += (my - ry) * 0.18;
+      ring.style.transform = `translate(${rx}px, ${ry}px) translate(-50%,-50%)`;
+    });
+    const hoverables = 'a, button, .cat-card, .prod-card, .nav-toggle, .hero-dot, input[type=submit]';
+    document.body.addEventListener('mouseover', (e) => {
+      if (e.target.closest(hoverables)) document.body.classList.add('cursor-hover');
+    });
+    document.body.addEventListener('mouseout', (e) => {
+      if (e.target.closest(hoverables)) document.body.classList.remove('cursor-hover');
+    });
+  }
+
   /* ── SCROLL PROGRESS ──────────────────────────────── */
   const bar = document.getElementById('bar');
-  window.addEventListener('scroll', () => {
-    const pct = window.scrollY / (document.body.scrollHeight - window.innerHeight);
+  lenis.on('scroll', ({ scroll, limit }) => {
+    const pct = limit > 0 ? scroll / limit : 0;
     gsap.set(bar, { scaleX: pct });
-  }, { passive: true });
+  });
 
   /* ── NAV STATE ────────────────────────────────────── */
   const nav = document.getElementById('nav');
-  window.addEventListener('scroll', () => {
-    nav.classList.toggle('scrolled', window.scrollY > 60);
-  }, { passive: true });
+  lenis.on('scroll', ({ scroll }) => {
+    nav.classList.toggle('scrolled', scroll > 60);
+  });
 
   /* ── MOBILE NAV ───────────────────────────────────── */
   const mobileNav = document.getElementById('mobileNav');
@@ -1151,6 +1250,57 @@
   gsap.to('.hero-slides', {
     y: '18%', ease: 'none',
     scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true }
+  });
+  gsap.to('.hero-content', {
+    y: '-12%', opacity: 0.2, ease: 'none',
+    scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true }
+  });
+
+  /* ── IMAGE MASK REVEALS ───────────────────────────── */
+  // Auto-wrap select images for mask reveal
+  document.querySelectorAll('.cat-card img, .prod-img-wrap img, .split-img img, .event-img img, .story-img img').forEach((img) => {
+    const parent = img.parentElement;
+    if (parent && !parent.classList.contains('mask-img')) {
+      parent.classList.add('mask-img');
+    }
+  });
+  gsap.utils.toArray('.mask-img').forEach((el, i) => {
+    ScrollTrigger.create({
+      trigger: el,
+      start: 'top 88%',
+      onEnter: () => {
+        // small natural stagger when many in same row
+        setTimeout(() => el.classList.add('revealed'), (i % 4) * 80);
+      },
+      once: true,
+    });
+  });
+
+  /* ── SCROLL-SCRUB IMAGE PARALLAX (gentle, only on large images) ─ */
+  gsap.utils.toArray('.split-img img, .event-img img, .story-img img').forEach((img) => {
+    gsap.to(img, {
+      yPercent: -10, ease: 'none',
+      scrollTrigger: { trigger: img.parentElement, start: 'top bottom', end: 'bottom top', scrub: true }
+    });
+  });
+
+  /* ── SPLIT-TEXT HEADLINE REVEAL ───────────────────── */
+  if (typeof SplitType !== 'undefined') {
+    gsap.utils.toArray('.section-title, .event-title, .story-quote').forEach((el) => {
+      const split = new SplitType(el, { types: 'lines, words', lineClass: 'split-line', wordClass: 'word' });
+      gsap.set(split.words, { yPercent: 110, opacity: 0 });
+      gsap.to(split.words, {
+        yPercent: 0, opacity: 1,
+        duration: 0.85, ease: 'power3.out', stagger: 0.045,
+        scrollTrigger: { trigger: el, start: 'top 85%', once: true }
+      });
+    });
+  }
+
+  /* ── MARQUEE TICKER FADE-IN ───────────────────────── */
+  gsap.from('.ticker-inner', {
+    opacity: 0, duration: 1.2, ease: 'power2.out',
+    scrollTrigger: { trigger: '.ticker', start: 'top 95%', once: true }
   });
 
   /* ── HOURS ROW STAGGER ────────────────────────────── */
