@@ -523,6 +523,131 @@
     /* ── VINTAGE ─────────────────────────────────── */
     .vintage-section { background:var(--sand); }
 
+    /* ── EDITORIAL SPREAD (Curator's Edit) ────────── */
+    .edit-section {
+      background:var(--warm-white);
+      padding:120px 5vw 100px;
+      position:relative;
+    }
+    .edit-marker {
+      position:absolute; top:38px; right:5vw;
+      font-family:'Cormorant Garamond', serif;
+      font-size:12px; letter-spacing:.32em; text-transform:uppercase;
+      color:var(--taupe); display:flex; align-items:center; gap:14px;
+    }
+    .edit-marker::before {
+      content:''; width:48px; height:1px; background:var(--taupe);
+    }
+    .edit-issue {
+      font-style:italic;
+      font-size:120px; line-height:1; font-weight:300;
+      color:var(--sand); position:absolute;
+      top:60px; left:4vw;
+      pointer-events:none; user-select:none;
+    }
+    .edit-spread {
+      display:grid; grid-template-columns:1.15fr 1fr;
+      gap:80px; align-items:end;
+      max-width:1320px; margin:80px auto 90px;
+      position:relative;
+    }
+    .edit-spread-img {
+      position:relative; aspect-ratio:4/5; overflow:hidden;
+      background:var(--sand);
+    }
+    .edit-spread-img img {
+      width:100%; height:100%; object-fit:cover; display:block;
+    }
+    .edit-spread-img .img-tag {
+      position:absolute; bottom:18px; left:18px; right:18px;
+      display:flex; justify-content:space-between; align-items:flex-end;
+      color:var(--warm-white); z-index:5;
+    }
+    .edit-spread-img::after {
+      content:''; position:absolute; inset:0;
+      background:linear-gradient(to bottom, transparent 60%, rgba(20,14,10,.45) 100%);
+      pointer-events:none;
+    }
+    .edit-spread-img .tag-l {
+      font-size:9px; letter-spacing:.24em; text-transform:uppercase; font-weight:500;
+    }
+    .edit-spread-img .tag-r {
+      font-family:'Cormorant Garamond', serif; font-style:italic;
+      font-size:16px;
+    }
+    .edit-spread-text {
+      padding-bottom:24px;
+    }
+    .edit-spread-text .section-tag {
+      color:var(--rose); margin-bottom:18px;
+    }
+    .edit-spread-text h2 {
+      font-family:'Cormorant Garamond', serif;
+      font-size:clamp(40px, 4.5vw, 64px); font-weight:400; line-height:1.05;
+      margin-bottom:24px; letter-spacing:-.005em;
+    }
+    .edit-spread-text h2 em { font-style:italic; }
+    .edit-spread-text .lead {
+      font-family:'Cormorant Garamond', serif;
+      font-size:21px; font-style:italic; font-weight:400;
+      color:var(--taupe); line-height:1.55;
+      border-top:1px solid var(--border-med);
+      padding-top:22px; margin-top:22px;
+    }
+    .edit-spread-text .body {
+      font-size:13px; color:var(--taupe); line-height:1.85;
+      margin-top:22px; font-weight:300;
+    }
+    .edit-spread-text .pick-num {
+      font-family:'Cormorant Garamond', serif;
+      font-size:13px; letter-spacing:.18em; text-transform:uppercase;
+      color:var(--rose); font-weight:500;
+      display:inline-block; margin-bottom:18px;
+    }
+    .edit-spread-text .pick-num span {
+      font-style:italic; color:var(--taupe); margin-left:6px;
+    }
+
+    .edit-picks {
+      display:grid; grid-template-columns:repeat(4,1fr); gap:24px;
+      max-width:1320px; margin:0 auto;
+    }
+    .edit-pick {
+      display:block; text-decoration:none; color:inherit;
+    }
+    .edit-pick-img {
+      position:relative; aspect-ratio:3/4; overflow:hidden;
+      background:var(--sand); margin-bottom:14px;
+    }
+    .edit-pick-img img {
+      width:100%; height:100%; object-fit:cover;
+      transition:transform .8s ease;
+    }
+    .edit-pick:hover .edit-pick-img img { transform:scale(1.05); }
+    .edit-pick-num {
+      position:absolute; top:14px; left:14px;
+      font-family:'Cormorant Garamond', serif; font-style:italic;
+      font-size:22px; color:var(--warm-white);
+      text-shadow:0 1px 6px rgba(0,0,0,.4);
+      z-index:5;
+    }
+    .edit-pick-name {
+      font-family:'Cormorant Garamond', serif;
+      font-size:18px; font-weight:400; line-height:1.3;
+    }
+    .edit-pick-note {
+      font-style:italic; color:var(--taupe);
+      font-size:12px; margin-top:4px; line-height:1.5;
+    }
+
+    @media (max-width:1100px) {
+      .edit-picks { grid-template-columns:repeat(2,1fr); gap:18px; }
+    }
+    @media (max-width:900px) {
+      .edit-spread { grid-template-columns:1fr; gap:36px; }
+      .edit-issue { font-size:80px; }
+    }
+
     /* ── EVENTS ──────────────────────────────────── */
     .events-section { background:var(--espresso); color:var(--warm-white); }
     .events-section .section-tag { color:var(--champagne); }
@@ -983,6 +1108,65 @@
   </div>
 </div>
 
+<!-- EDITORIAL SPREAD — Curator's Edit -->
+<section class="edit-section" id="edit">
+  <div class="edit-issue" aria-hidden="true">N° 01</div>
+  <div class="edit-marker">Vol. 01 · Curator's Edit</div>
+
+  <div class="edit-spread">
+    <div class="edit-spread-img reveal-left">
+      <img src="https://www.modeonmainbymara.com/cdn/shop/files/1080x1350.jpg?v=1771015119&width=1100" alt="Jana's hand-selected pieces for the season" loading="lazy">
+      <div class="img-tag">
+        <span class="tag-l">Featured · Winter Edit</span>
+        <span class="tag-r">— Jana K.</span>
+      </div>
+    </div>
+    <div class="edit-spread-text reveal-right">
+      <span class="pick-num">Issue No. 01<span>· The Edit</span></span>
+      <span class="section-tag">Jana's Picks</span>
+      <h2>The Pieces I'm <em>Reaching For</em> All Season.</h2>
+      <p class="lead">"It's a feeling more than a formula — a wool that drapes the right way, a denim with a soul, a piece you'll keep finding new ways to wear."</p>
+      <p class="body">Four picks pulled straight from the floor — the ones I keep gravitating back to. Each was chosen for the way it layers, lasts, and tells a quiet story when you wear it.</p>
+      <a href="https://www.modeonmainbymara.com/collections/all" class="view-all" style="margin-top:32px;" target="_blank" rel="noopener">Shop Every Pick <i class="fas fa-arrow-right"></i></a>
+    </div>
+  </div>
+
+  <div class="edit-picks" id="editPicks">
+    <a href="https://www.modeonmainbymara.com/products/upcycled-rug-fabric-reversible-gown" class="edit-pick" target="_blank" rel="noopener">
+      <div class="edit-pick-img">
+        <span class="edit-pick-num">N°01</span>
+        <img src="https://www.modeonmainbymara.com/cdn/shop/files/4e654e91c36400b1ea05eeff0f491abecddffbd9da7e2528cf64b37447ebeea1.jpg?width=600" alt="Upcycled Rug Fabric Reversible Gown" loading="lazy">
+      </div>
+      <div class="edit-pick-name">Upcycled Rug Fabric Gown</div>
+      <div class="edit-pick-note">"A one-of-one. Wear it both ways."</div>
+    </a>
+    <a href="https://www.modeonmainbymara.com/products/mode-edit-purple-flannel-size-2xl" class="edit-pick" target="_blank" rel="noopener">
+      <div class="edit-pick-img">
+        <span class="edit-pick-num">N°02</span>
+        <img src="https://www.modeonmainbymara.com/cdn/shop/files/IMG_4705.webp?v=1773714358&width=600" alt="Mode Edit Purple Flannel" loading="lazy">
+      </div>
+      <div class="edit-pick-name">Mode Edit Purple Flannel</div>
+      <div class="edit-pick-note">"My uniform on cold mornings."</div>
+    </a>
+    <a href="https://www.modeonmainbymara.com/products/wolf-willa-blue-green-striped-silk-velvet-crossbody-handbag" class="edit-pick" target="_blank" rel="noopener">
+      <div class="edit-pick-img">
+        <span class="edit-pick-num">N°03</span>
+        <img src="https://www.modeonmainbymara.com/cdn/shop/files/IMG_4262.webp?width=600" alt="Wolf & Willa Silk Velvet Crossbody" loading="lazy">
+      </div>
+      <div class="edit-pick-name">Silk Velvet Crossbody</div>
+      <div class="edit-pick-note">"Texture, color, story — yes to all three."</div>
+    </a>
+    <a href="https://www.modeonmainbymara.com/products/lace-overlay-skirt-size-s" class="edit-pick" target="_blank" rel="noopener">
+      <div class="edit-pick-img">
+        <span class="edit-pick-num">N°04</span>
+        <img src="https://www.modeonmainbymara.com/cdn/shop/files/IMG_4716.webp?v=1773714256&width=600" alt="Lace Overlay Skirt" loading="lazy">
+      </div>
+      <div class="edit-pick-name">Lace Overlay Skirt</div>
+      <div class="edit-pick-note">"Soft, dramatic, a little romantic."</div>
+    </a>
+  </div>
+</section>
+
 <!-- VINTAGE & PRE-LOVED -->
 <section class="vintage-section section-pad">
   <div class="section-header reveal">
@@ -1387,6 +1571,18 @@
       }
     );
   });
+
+  /* ── EDIT PICKS STAGGER ────────────────────────────── */
+  const editPicks = document.querySelector('#editPicks');
+  if (editPicks) {
+    gsap.fromTo(editPicks.querySelectorAll('.edit-pick'),
+      { opacity: 0, y: 44 },
+      {
+        scrollTrigger: { trigger: editPicks, start: 'top 88%', toggleActions: 'play none none none' },
+        opacity: 1, y: 0, duration: 0.75, stagger: 0.12, ease: 'power3.out'
+      }
+    );
+  }
 
   /* ── CATEGORY CARD STAGGER ────────────────────────── */
   gsap.fromTo('.cat-card',
