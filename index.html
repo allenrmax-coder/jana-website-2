@@ -49,30 +49,6 @@
       overflow-x:hidden;
     }
 
-    /* ── CUSTOM CURSOR (desktop only) ──────────────── */
-    @media (hover:hover) and (pointer:fine) {
-      body { cursor:none; }
-      a, button, input, .card-link, .nav-toggle, .hero-dot { cursor:none; }
-      .cursor-dot {
-        position:fixed; top:0; left:0; pointer-events:none; z-index:99999;
-        width:6px; height:6px; border-radius:50%;
-        background:var(--espresso);
-        mix-blend-mode:difference;
-        transform:translate(-50%,-50%);
-        transition:transform .25s ease, width .25s ease, height .25s ease, background .25s ease;
-      }
-      .cursor-ring {
-        position:fixed; top:0; left:0; pointer-events:none; z-index:99998;
-        width:36px; height:36px; border-radius:50%;
-        border:1px solid var(--espresso);
-        mix-blend-mode:difference;
-        transform:translate(-50%,-50%);
-        transition:width .35s ease, height .35s ease, border-color .25s ease, opacity .25s ease;
-      }
-      .cursor-hover .cursor-dot { width:0; height:0; }
-      .cursor-hover .cursor-ring { width:60px; height:60px; }
-    }
-
     /* ── IMAGE MASK REVEAL ──────────────────────────── */
     .mask-img { position:relative; overflow:hidden; }
     .mask-img::before {
@@ -174,20 +150,16 @@
       overflow:hidden;
       margin-top:106px;
     }
-    .hero-slides { position:absolute; inset:0; z-index:0; }
-    .hero-slide {
-      position:absolute; inset:0;
-      background-size:cover; background-position:center;
-      opacity:0; transition:opacity 1.6s ease;
+    .hero-bg {
+      position:absolute; inset:0; z-index:0;
+      background-image:url('images/lookbook/look-01.webp');
+      background-size:cover;
+      background-position:center 28%;
+      background-repeat:no-repeat;
     }
-    .hero-slide.active { opacity:1; animation:ken-burns 9s ease-out forwards; }
-    @keyframes ken-burns {
-      from { transform:scale(1.02); }
-      to   { transform:scale(1.10); }
-    }
-    .hero-slide::after {
+    .hero-bg::after {
       content:''; position:absolute; inset:0;
-      background:linear-gradient(to bottom, rgba(10,7,5,.10) 0%, rgba(10,7,5,.00) 35%, rgba(10,7,5,.42) 100%);
+      background:linear-gradient(to bottom, rgba(10,7,5,.10) 0%, rgba(10,7,5,.00) 35%, rgba(10,7,5,.55) 100%);
     }
     .hero-content {
       position:absolute; left:5vw; bottom:7vh; right:5vw; z-index:3;
@@ -228,17 +200,6 @@
       transition:border-color .3s, background .3s;
     }
     .btn-outline-light:hover { border-color:var(--warm-white); background:rgba(253,251,248,.1); }
-
-    .hero-dots {
-      position:absolute; bottom:3.5vh; left:50%; transform:translateX(-50%);
-      display:flex; gap:14px; z-index:3;
-    }
-    .hero-dot {
-      width:22px; height:1.5px;
-      background:rgba(253,251,248,.4); cursor:pointer;
-      transition:background .4s, width .4s;
-    }
-    .hero-dot.active { background:var(--warm-white); width:38px; }
 
     /* ── SECTION COMMONS ─────────────────────────── */
     section { position:relative; z-index:1; }
@@ -772,12 +733,7 @@
 
 <!-- 1. HERO -->
 <section class="hero">
-  <div class="hero-slides" id="heroSlides">
-    <div class="hero-slide active" style="background-image:url('images/lookbook/look-01.webp'); background-position:center 28%;"></div>
-    <div class="hero-slide" style="background-image:url('images/lookbook/look-02.webp'); background-position:center 30%;"></div>
-    <div class="hero-slide" style="background-image:url('images/lookbook/look-03.webp'); background-position:center 35%;"></div>
-    <div class="hero-slide" style="background-image:url('https://www.modeonmainbymara.com/cdn/shop/files/1080x1350.jpg?v=1771015119'); background-position:center;"></div>
-  </div>
+  <div class="hero-bg" aria-hidden="true"></div>
 
   <div class="hero-content">
     <div class="h-left">
@@ -788,13 +744,6 @@
         <a href="https://www.modeonmainbymara.com/collections/vintage-pre-loved" class="btn-outline-light" target="_blank" rel="noopener">Vintage &amp; Pre-Loved</a>
       </div>
     </div>
-  </div>
-
-  <div class="hero-dots" id="heroDots">
-    <div class="hero-dot active"></div>
-    <div class="hero-dot"></div>
-    <div class="hero-dot"></div>
-    <div class="hero-dot"></div>
   </div>
 </section>
 
@@ -1131,6 +1080,7 @@
         <li><a href="https://www.modeonmainbymara.com/pages/shipping-policy" target="_blank" rel="noopener">Shipping</a></li>
         <li><a href="https://www.modeonmainbymara.com/pages/privacy-policy" target="_blank" rel="noopener">Privacy Policy</a></li>
         <li><a href="https://www.modeonmainbymara.com/pages/terms-of-service" target="_blank" rel="noopener">Terms of Service</a></li>
+        <li><a href="accessibility.html">Accessibility</a></li>
       </ul>
     </div>
     <div class="footer-col">
@@ -1190,29 +1140,6 @@
     });
   });
 
-  /* ── CUSTOM CURSOR ────────────────────────────────── */
-  const canHover = window.matchMedia('(hover:hover) and (pointer:fine)').matches;
-  if (canHover) {
-    const dot = document.createElement('div'); dot.className = 'cursor-dot';
-    const ring = document.createElement('div'); ring.className = 'cursor-ring';
-    document.body.append(dot, ring);
-    let mx = 0, my = 0, rx = 0, ry = 0;
-    window.addEventListener('mousemove', (e) => { mx = e.clientX; my = e.clientY; });
-    gsap.ticker.add(() => {
-      dot.style.transform = `translate(${mx}px, ${my}px) translate(-50%,-50%)`;
-      rx += (mx - rx) * 0.18;
-      ry += (my - ry) * 0.18;
-      ring.style.transform = `translate(${rx}px, ${ry}px) translate(-50%,-50%)`;
-    });
-    const hoverables = 'a, button, .card-link, .nav-toggle, .hero-dot, input[type=submit], .play-btn';
-    document.body.addEventListener('mouseover', (e) => {
-      if (e.target.closest(hoverables)) document.body.classList.add('cursor-hover');
-    });
-    document.body.addEventListener('mouseout', (e) => {
-      if (e.target.closest(hoverables)) document.body.classList.remove('cursor-hover');
-    });
-  }
-
   /* ── SCROLL PROGRESS ──────────────────────────────── */
   const bar = document.getElementById('bar');
   lenis.on('scroll', ({ scroll, limit }) => {
@@ -1243,30 +1170,10 @@
 
   /* ── HERO ENTRANCE ────────────────────────────────── */
   gsap.set(['#heroTag','#heroTitle','#heroBtns'], { y: 32, opacity: 0 });
-  gsap.set('.hero-dots', { opacity: 0 });
   gsap.timeline({ delay: 0.45 })
     .to('#heroTag',   { opacity:1, y:0, duration:0.7,  ease:'power2.out' })
     .to('#heroTitle', { opacity:1, y:0, duration:0.95, ease:'power3.out' }, '-=0.4')
-    .to('#heroBtns',  { opacity:1, y:0, duration:0.65, ease:'power2.out' }, '-=0.45')
-    .to('.hero-dots', { opacity:1, duration:0.8, ease:'power2.out' }, '-=0.4');
-
-  /* ── HERO SLIDESHOW ───────────────────────────────── */
-  const slides = document.querySelectorAll('.hero-slide');
-  const dots   = document.querySelectorAll('.hero-dot');
-  let current  = 0, timer;
-  function goToSlide(n) {
-    slides[current].classList.remove('active');
-    dots[current].classList.remove('active');
-    current = (n + slides.length) % slides.length;
-    slides[current].classList.add('active');
-    dots[current].classList.add('active');
-  }
-  function startTimer() {
-    clearInterval(timer);
-    timer = setInterval(() => goToSlide(current + 1), 5500);
-  }
-  dots.forEach((dot, i) => dot.addEventListener('click', () => { goToSlide(i); startTimer(); }));
-  startTimer();
+    .to('#heroBtns',  { opacity:1, y:0, duration:0.65, ease:'power2.out' }, '-=0.45');
 
   /* ── GSAP SCROLL REVEALS ──────────────────────────── */
   gsap.utils.toArray('.reveal').forEach(el => {
@@ -1330,7 +1237,7 @@
   );
 
   /* ── PARALLAX HERO ────────────────────────────────── */
-  gsap.to('.hero-slides', {
+  gsap.to('.hero-bg', {
     y: '15%', ease: 'none',
     scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true }
   });
