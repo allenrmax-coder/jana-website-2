@@ -199,15 +199,11 @@
     .hero-slide::after {
       content:''; position:absolute; inset:0;
       background:
-        linear-gradient(to right,
-          rgba(10,7,5,.62) 0%,
-          rgba(10,7,5,.34) 45%,
-          rgba(10,7,5,.20) 75%,
-          rgba(10,7,5,.40) 100%),
         linear-gradient(to bottom,
-          rgba(10,7,5,.28) 0%,
-          rgba(10,7,5,.10) 50%,
-          rgba(10,7,5,.62) 100%);
+          rgba(10,7,5,.12) 0%,
+          rgba(10,7,5,.00) 30%,
+          rgba(10,7,5,.00) 55%,
+          rgba(10,7,5,.55) 100%);
     }
 
     /* Vertical right-side label */
@@ -254,17 +250,18 @@
     }
     .hero-title {
       font-family:'Cormorant Garamond', serif;
-      font-size:clamp(56px, 9.5vw, 140px);
-      font-weight:300; line-height:.96; margin-bottom:30px;
-      letter-spacing:-.01em;
-      text-shadow:0 2px 28px rgba(0,0,0,.45), 0 1px 4px rgba(0,0,0,.3);
+      font-size:clamp(36px, 5.6vw, 78px);
+      font-weight:300; line-height:1.02; margin-bottom:22px;
+      letter-spacing:-.005em;
+      text-shadow:0 2px 28px rgba(0,0,0,.55), 0 1px 4px rgba(0,0,0,.35);
+      max-width:640px;
     }
     .hero-title em { font-style:italic; color:var(--champagne-lt); font-weight:300; }
     .hero-sub {
-      font-size:13px; letter-spacing:.04em; font-weight:300;
-      color:rgba(253,251,248,.88); margin-bottom:40px; line-height:1.75;
-      max-width:480px;
-      text-shadow:0 1px 10px rgba(0,0,0,.5);
+      font-size:12px; letter-spacing:.04em; font-weight:300;
+      color:rgba(253,251,248,.9); margin-bottom:32px; line-height:1.75;
+      max-width:380px;
+      text-shadow:0 1px 10px rgba(0,0,0,.6);
     }
     .hero-btns {
       display:flex; gap:14px; flex-wrap:wrap;
@@ -567,25 +564,50 @@
     /* ── BATH & BODY ─────────────────────────────── */
     .bath-section { background:var(--warm-white); }
 
-    /* ── STORY ───────────────────────────────────── */
+    /* ── STORY (founder feature) ──────────────────── */
     .story-section { background:var(--cream); }
     .story-inner {
-      display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:center;
+      display:grid; grid-template-columns:1.05fr 1fr; gap:90px; align-items:center;
+      max-width:1320px; margin:0 auto;
     }
     .story-images {
-      display:grid; grid-template-columns:1fr 1fr;
-      grid-template-rows:1fr 1fr; gap:8px; height:520px;
+      display:grid; grid-template-columns:2.2fr 1fr;
+      grid-template-rows:1.4fr 1fr; gap:10px; height:640px;
     }
-    .story-img { overflow:hidden; }
+    .story-img { overflow:hidden; position:relative; }
     .story-img:first-child { grid-row:1/3; }
     .story-img img { width:100%; height:100%; object-fit:cover; display:block; }
+    .story-img .img-caption {
+      position:absolute; bottom:14px; left:14px;
+      font-size:9px; letter-spacing:.24em; text-transform:uppercase;
+      font-weight:500; color:var(--warm-white);
+      background:rgba(20,14,10,.62);
+      padding:6px 12px;
+      backdrop-filter:blur(4px);
+      z-index:5;
+    }
     .story-text .section-title { text-align:left; }
     .story-text .section-sub { text-align:left; margin-left:0; }
     .story-quote {
-      font-family:'Cormorant Garamond', serif; font-size:21px; font-style:italic;
-      font-weight:400; color:var(--taupe);
-      border-left:2px solid var(--champagne); padding-left:18px;
-      margin:26px 0; line-height:1.5;
+      font-family:'Cormorant Garamond', serif; font-size:24px; font-style:italic;
+      font-weight:400; color:var(--espresso);
+      border-left:2px solid var(--champagne); padding-left:22px;
+      margin:32px 0; line-height:1.45;
+    }
+    .story-signature {
+      margin-top:36px;
+      display:flex; align-items:center; gap:14px;
+    }
+    .story-signature .sig-line {
+      width:34px; height:1px; background:var(--taupe);
+    }
+    .story-signature .sig-name {
+      font-family:'Cormorant Garamond', serif; font-style:italic;
+      font-size:22px; color:var(--espresso);
+    }
+    .story-signature .sig-role {
+      font-size:9.5px; letter-spacing:.22em; text-transform:uppercase;
+      font-weight:500; color:var(--taupe); margin-top:2px;
     }
 
     /* ── LOCATION ────────────────────────────────── */
@@ -782,7 +804,7 @@
       <span class="hero-tag" id="heroTag">Winter Edit · Vol. 01</span>
     </div>
     <h1 class="hero-title" id="heroTitle">Style That <em>Speaks.</em><br>Stories That <em>Stay.</em></h1>
-    <p class="hero-sub" id="heroSub">A curated lifestyle boutique where vintage meets contemporary —<br>always authentic, never ordinary.</p>
+    <p class="hero-sub" id="heroSub">Curated for the bold and the nostalgic. Vintage and contemporary, side by side.</p>
     <div class="hero-btns" id="heroBtns">
       <a href="https://www.modeonmainbymara.com/collections/new-pieces" class="btn-light" target="_blank" rel="noopener">Shop The Edit</a>
       <a href="https://www.modeonmainbymara.com/collections/vintage-pre-loved" class="btn-outline-light" target="_blank" rel="noopener">Vintage & Pre-Loved</a>
@@ -1087,21 +1109,29 @@
   <div class="story-inner">
     <div class="story-images">
       <div class="story-img reveal-left">
-        <img src="https://www.modeonmainbymara.com/cdn/shop/files/IMG_4046.webp?v=1771523619&width=700" alt="Mode on Main boutique interior" loading="lazy">
+        <img src="https://cdn.shopify.com/s/files/1/0071/5725/2209/files/Jana1.webp?v=1747263387" alt="Jana Klavina — founder of Mode on Main by Mara" loading="lazy">
+        <span class="img-caption">Jana, founder</span>
       </div>
       <div class="story-img reveal">
-        <img src="https://www.modeonmainbymara.com/cdn/shop/files/IMG_4725.webp?v=1773713118&width=500" alt="Boutique style" loading="lazy">
+        <img src="https://www.modeonmainbymara.com/cdn/shop/files/IMG_4046.webp?v=1771523619&width=600" alt="Inside the boutique" loading="lazy">
       </div>
       <div class="story-img reveal">
-        <img src="https://www.modeonmainbymara.com/cdn/shop/files/IMG_4724.webp?v=1773713118&width=500" alt="Fashion detail" loading="lazy">
+        <img src="https://www.modeonmainbymara.com/cdn/shop/files/IMG_4725.webp?v=1773713118&width=500" alt="Curated piece" loading="lazy">
       </div>
     </div>
     <div class="story-text reveal-right">
-      <span class="section-tag" style="text-align:left;display:block;">Our Story</span>
+      <span class="section-tag" style="text-align:left;display:block;">Meet The Curator</span>
       <h2 class="section-title" style="text-align:left;">A Little Nostalgic.<br>A Little <em>Rebellious.</em></h2>
-      <blockquote class="story-quote">"Style That Speaks. Stories That Stay."</blockquote>
-      <p class="section-sub" style="text-align:left;margin-left:0;">Mode on Main by Mara is a curated lifestyle boutique in the heart of Old Town Fairfax, Virginia. Founded by Jana Klavina, our shop celebrates sustainable fashion and intentional shopping — blending vintage finds with contemporary pieces that feel authentic and alive.</p>
-      <p class="section-sub" style="text-align:left;margin-left:0;margin-top:12px;">Every item on our shelves is handpicked with care. Whether you're discovering your signature style or adding a timeless piece to your wardrobe, you'll always leave with something that feels like you.</p>
+      <blockquote class="story-quote">"Every piece in this shop earned its place — handpicked, lived-in, and loved before it ever made it to your closet."</blockquote>
+      <p class="section-sub" style="text-align:left;margin-left:0;">Mode on Main by Mara is a curated lifestyle boutique in the heart of Old Town Fairfax, Virginia. Founded by Jana Klavina, the shop celebrates sustainable fashion and intentional shopping — blending vintage finds with contemporary pieces that feel authentic and alive.</p>
+      <p class="section-sub" style="text-align:left;margin-left:0;margin-top:12px;">Whether you're discovering your signature style or adding a timeless piece to your wardrobe, you'll always leave with something that feels like you.</p>
+      <div class="story-signature">
+        <span class="sig-line"></span>
+        <div>
+          <div class="sig-name">Jana Klavina</div>
+          <div class="sig-role">Founder · Curator</div>
+        </div>
+      </div>
       <a href="https://www.modeonmainbymara.com/pages/about-us" class="view-all" style="margin-top:28px;" target="_blank" rel="noopener">Read Our Full Story <i class="fas fa-arrow-right"></i></a>
     </div>
   </div>
