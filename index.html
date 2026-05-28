@@ -47,6 +47,17 @@
       color:var(--espresso);
       font-family:'Montserrat', sans-serif;
       overflow-x:hidden;
+      line-height:1.65;
+    }
+
+    /* Subtle paper grain for warmth — barely-there texture */
+    body::before {
+      content:'';
+      position:fixed; inset:0;
+      pointer-events:none; z-index:9997;
+      opacity:.035;
+      background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.12  0 0 0 0 0.09  0 0 0 0 0.08  0 0 0 0.9 0'/></filter><rect width='180' height='180' filter='url(%23n)'/></svg>");
+      mix-blend-mode:multiply;
     }
 
     /* ── IMAGE MASK REVEAL ──────────────────────────── */
@@ -79,7 +90,13 @@
       font-size:10.5px; letter-spacing:.18em; text-transform:uppercase; font-weight:500;
       position:fixed; top:0; left:0; right:0; z-index:550;
     }
-    .announcement-top span { color:var(--champagne-lt); margin:0 14px; }
+    .announcement-top span.sep { color:var(--champagne-lt); margin:0 14px; }
+    .announcement-top .ann-extra { display:inline; }
+    @media (max-width:640px) {
+      .announcement-top { font-size:9px; padding:7px 12px; letter-spacing:.12em; }
+      .announcement-top .ann-extra { display:none; }
+      .announcement-top span.sep { margin:0 8px; }
+    }
 
     /* ── NAVIGATION ──────────────────────────────── */
     nav {
@@ -101,11 +118,12 @@
     }
 
     .nav-links {
-      display:flex; gap:30px; list-style:none;
+      display:flex; gap:22px; list-style:none;
     }
     .nav-links a {
-      font-size:10.5px; letter-spacing:.18em; text-transform:uppercase; font-weight:500;
+      font-size:10px; letter-spacing:.14em; text-transform:uppercase; font-weight:500;
       color:var(--espresso); text-decoration:none;
+      white-space:nowrap;
       position:relative; padding-bottom:2px;
       transition:color .3s;
     }
@@ -190,6 +208,7 @@
       font-size:10.5px; letter-spacing:.18em; text-transform:uppercase; font-weight:600;
       padding:14px 36px; background:var(--warm-white); color:var(--espresso);
       text-decoration:none; border:1px solid var(--warm-white);
+      border-radius:2px;
       transition:background .3s, color .3s;
     }
     .btn-light:hover { background:transparent; color:var(--warm-white); }
@@ -197,6 +216,7 @@
       font-size:10.5px; letter-spacing:.18em; text-transform:uppercase; font-weight:500;
       padding:14px 36px; background:transparent; color:var(--warm-white);
       text-decoration:none; border:1px solid rgba(253,251,248,.55);
+      border-radius:2px;
       transition:border-color .3s, background .3s;
     }
     .btn-outline-light:hover { border-color:var(--warm-white); background:rgba(253,251,248,.1); }
@@ -226,6 +246,7 @@
       font-size:10.5px; letter-spacing:.22em; text-transform:uppercase; font-weight:600;
       padding:14px 30px; background:var(--espresso); color:var(--warm-white);
       text-decoration:none; border:1px solid var(--espresso);
+      border-radius:2px;
       transition:background .3s, color .3s;
     }
     .btn-dark:hover { background:transparent; color:var(--espresso); }
@@ -704,7 +725,7 @@
 
 <!-- ANNOUNCEMENT BAR -->
 <div class="announcement-top">
-  Free Shipping On Orders $100+<span>·</span>Free In-Store Pickup<span>·</span>10417 Main St. Fairfax, VA
+  Free Shipping On Orders $100+<span class="sep">·</span>Free In-Store Pickup<span class="sep ann-extra">·</span><span class="ann-extra">10417 Main St. Fairfax, VA</span>
 </div>
 
 <!-- NAV -->
@@ -769,16 +790,6 @@
   </div>
 </section>
 
-<!-- TEXT BLOCK — intro -->
-<section class="text-block">
-  <div class="tb-inner">
-    <span class="section-tag">Just Through The Doors</span>
-    <h2>The <em>Mode Edit</em>, Just Restocked.</h2>
-    <p>Fresh arrivals from RIXO, Rag &amp; Bone, and one-of-one vintage finds — curated with intention, priced with love. Step inside to see them on the floor.</p>
-    <a href="https://www.modeonmainbymara.com/collections/all" class="link-under" target="_blank" rel="noopener">Shop Everything <i class="fas fa-arrow-right"></i></a>
-  </div>
-</section>
-
 <!-- 5. 3-COL FEATURE GRID -->
 <section class="feature-3col">
   <div class="f3-grid">
@@ -815,32 +826,6 @@
         <span class="f3-cta">Shop Now</span>
       </div>
     </a>
-  </div>
-</section>
-
-<!-- 6. STYLED BY MARA — IG REELS -->
-<section class="video-section">
-  <div class="video-head">
-    <span class="section-tag">Styled By Mara</span>
-    <h2 class="section-title reveal">Watch The <em>Looks</em>, Shop The Pieces.</h2>
-    <p class="section-sub reveal">Straight from the boutique floor — how Mara styles every piece. Tap a reel to watch.</p>
-  </div>
-  <div class="reels-grid">
-    <div class="reel-card reveal">
-      <span class="reel-tag">Look · 01</span>
-      <iframe src="https://www.instagram.com/p/DXug2OyjNXc/embed/?cr=1" allowfullscreen scrolling="no" allowtransparency loading="lazy" title="Mode on Main — Look 01"></iframe>
-    </div>
-    <div class="reel-card reveal">
-      <span class="reel-tag">Look · 02</span>
-      <iframe src="https://www.instagram.com/p/DXzf0BRM2Gy/embed/?cr=1" allowfullscreen scrolling="no" allowtransparency loading="lazy" title="Mode on Main — Look 02"></iframe>
-    </div>
-    <div class="reel-card reveal">
-      <span class="reel-tag">Look · 03</span>
-      <iframe src="https://www.instagram.com/p/DXrs20yjEDu/embed/?cr=1" allowfullscreen scrolling="no" allowtransparency loading="lazy" title="Mode on Main — Look 03"></iframe>
-    </div>
-  </div>
-  <div class="reels-foot reveal">
-    <a href="https://www.instagram.com/modeonmainbymara" class="link-under" target="_blank" rel="noopener">More On Instagram <i class="fas fa-arrow-right"></i></a>
   </div>
 </section>
 
@@ -915,21 +900,6 @@
   </div>
 </section>
 
-<!-- 9. SUMMER EDIT FEATURE (image right) -->
-<section class="feature-side image-right">
-  <div class="fs-img mask-img reveal-right">
-    <img src="images/lookbook/look-02.webp" alt="Your Wardrobe Update — Mode on Main" loading="lazy">
-  </div>
-  <div class="fs-text">
-    <div class="fs-text-inner">
-      <span class="section-tag">Your Wardrobe Update</span>
-      <h2 class="section-title">The <em>Summer Edit</em> — Life In Full Bloom.</h2>
-      <p class="section-sub">Light-as-air linens, floral bucket hats, hand-painted scarves. Built for porch dinners, market mornings, and the long Main Street walk home.</p>
-      <a href="https://www.modeonmainbymara.com/collections/new-pieces" class="btn-dark" target="_blank" rel="noopener">Shop Now</a>
-    </div>
-  </div>
-</section>
-
 <!-- 10. ABOUT (text-only) -->
 <section class="text-block" id="story" style="background:var(--cream);">
   <div class="tb-inner">
@@ -937,84 +907,6 @@
     <h2>A Curated <em>Lifestyle Boutique</em> in Old Town Fairfax.</h2>
     <p>Founded by Jana Klavina, Mode on Main is a love letter to sustainable fashion and intentional living. Vintage finds layered with contemporary pieces, hand-picked from the floor to your closet. "Style that speaks. Stories that stay."</p>
     <a href="https://www.modeonmainbymara.com/pages/about-us" class="link-under" target="_blank" rel="noopener">Read Our Full Story <i class="fas fa-arrow-right"></i></a>
-  </div>
-</section>
-
-<!-- 11. 2-COL BRAND FEATURES -->
-<section class="brand-2col">
-  <a href="https://www.modeonmainbymara.com/collections/bath-body" class="b2-card mask-img" target="_blank" rel="noopener">
-    <img src="https://www.modeonmainbymara.com/cdn/shop/files/1763bafc6c14195df02b9d622c3ab584e73dfa57368ad5926379fa567ad2d9d8.jpg?width=1100" alt="Bath &amp; Body — Mode on Main" loading="lazy">
-    <div class="b2-text">
-      <span class="b2-eyebrow">Wellness &amp; Beauty</span>
-      <div class="b2-title">Bath &amp; <em>Body</em></div>
-      <p class="section-sub" style="color:rgba(253,251,248,.78); margin-top:6px; max-width:340px;">Hand creams, perfume oils, candles — slow rituals that feel like a hug.</p>
-      <span class="b2-cta">Shop Now</span>
-    </div>
-  </a>
-  <a href="https://www.eventbrite.com/o/mode-on-main-by-mara" class="b2-card mask-img" target="_blank" rel="noopener">
-    <img src="https://www.modeonmainbymara.com/cdn/shop/files/Beige_Minimalist_Elegant_Jewelry_Collection_Promotion_Instagram_Story_0e963ba1-6a3a-4a63-a083-356e99ad4e45.png?v=1769308486&width=1100" alt="Charm Bar Events — Mode on Main" loading="lazy">
-    <div class="b2-text">
-      <span class="b2-eyebrow">In-Store Events</span>
-      <div class="b2-title">The <em>Charm Bar</em></div>
-      <p class="section-sub" style="color:rgba(253,251,248,.78); margin-top:6px; max-width:340px;">Design one-of-one jewelry at our boutique — multiple dates available.</p>
-      <span class="b2-cta">Reserve Your Spot</span>
-    </div>
-  </a>
-</section>
-
-<!-- 12. MARA'S PICKS — 4-col product grid -->
-<section class="pad-lg" style="background:var(--cream);">
-  <div class="container" style="padding:0;">
-    <div class="editorial-head reveal" style="margin-bottom:50px;">
-      <span class="section-tag">Mara's Picks</span>
-      <h2 class="section-title">The Pieces I'm <em>Reaching For</em> All Season.</h2>
-      <p class="section-sub">Four picks pulled straight from the floor — the ones I keep gravitating back to.</p>
-    </div>
-    <div class="prod-grid" id="picksGrid">
-      <a href="https://www.modeonmainbymara.com/products/lace-overlay-skirt-size-s" class="prod-card" target="_blank" rel="noopener">
-        <div class="prod-img-wrap mask-img">
-          <span class="prod-badge vintage">Vintage</span>
-          <img src="https://www.modeonmainbymara.com/cdn/shop/files/IMG_4716.webp?v=1773714256&width=600" alt="Lace Overlay Skirt" loading="lazy">
-          <span class="prod-wishlist" aria-hidden="true" title="Save"><i class="far fa-heart"></i></span>
-          <div class="prod-quick">Quick Look</div>
-        </div>
-        <div class="prod-name">Lace Overlay Skirt — Size S</div>
-        <div class="prod-price">$39.90</div>
-      </a>
-      <a href="https://www.modeonmainbymara.com/products/pink-mini-skirt-size-s" class="prod-card" target="_blank" rel="noopener">
-        <div class="prod-img-wrap mask-img">
-          <span class="prod-badge vintage">Vintage</span>
-          <img src="https://www.modeonmainbymara.com/cdn/shop/files/IMG_4712.webp?v=1773713450&width=600" alt="Pink Mini Skirt" loading="lazy">
-          <span class="prod-wishlist" aria-hidden="true" title="Save"><i class="far fa-heart"></i></span>
-          <div class="prod-quick">Quick Look</div>
-        </div>
-        <div class="prod-name">Pink Mini Skirt — Size S</div>
-        <div class="prod-price">$29.90</div>
-      </a>
-      <a href="https://www.modeonmainbymara.com/products/floral-ruffled-mini-skirt-size-m" class="prod-card" target="_blank" rel="noopener">
-        <div class="prod-img-wrap mask-img">
-          <span class="prod-badge vintage">Vintage</span>
-          <img src="https://www.modeonmainbymara.com/cdn/shop/files/IMG_4708.webp?v=1773713919&width=600" alt="Floral Ruffled Mini Skirt" loading="lazy">
-          <span class="prod-wishlist" aria-hidden="true" title="Save"><i class="far fa-heart"></i></span>
-          <div class="prod-quick">Quick Look</div>
-        </div>
-        <div class="prod-name">Floral Ruffled Mini Skirt — Size M</div>
-        <div class="prod-price">$29.90</div>
-      </a>
-      <a href="https://www.modeonmainbymara.com/products/mode-edit-purple-flannel-size-2xl" class="prod-card" target="_blank" rel="noopener">
-        <div class="prod-img-wrap mask-img">
-          <span class="prod-badge vintage">Vintage</span>
-          <img src="https://www.modeonmainbymara.com/cdn/shop/files/IMG_4705.webp?v=1773714358&width=600" alt="Mode Edit Purple Flannel" loading="lazy">
-          <span class="prod-wishlist" aria-hidden="true" title="Save"><i class="far fa-heart"></i></span>
-          <div class="prod-quick">Quick Look</div>
-        </div>
-        <div class="prod-name">Mode Edit Purple Flannel — Size 2XL</div>
-        <div class="prod-price">$69.90</div>
-      </a>
-    </div>
-    <div class="grid-foot reveal">
-      <a href="https://www.modeonmainbymara.com/collections/all" class="link-under" target="_blank" rel="noopener">Shop Every Pick <i class="fas fa-arrow-right"></i></a>
-    </div>
   </div>
 </section>
 
