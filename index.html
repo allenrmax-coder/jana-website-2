@@ -198,10 +198,11 @@
       filter:drop-shadow(0 4px 24px rgba(0,0,0,.3));
     }
     .hero-tag {
-      font-family:'Cormorant Garamond', serif;
-      font-style:italic;
-      font-size:13px; letter-spacing:.28em; text-transform:uppercase; font-weight:400;
-      color:rgba(226,206,170,.7); display:block; margin-bottom:24px;
+      font-family:'Modak', system-ui, sans-serif;
+      font-size:15px; letter-spacing:.35em; text-transform:uppercase; font-weight:400;
+      color:var(--champagne-lt);
+      display:block; margin-bottom:26px;
+      text-shadow:0 2px 0 rgba(0,0,0,.25);
     }
     .hero-title {
       font-family:'Modak', system-ui, sans-serif;
@@ -232,6 +233,37 @@
     .hero-btn-row {
       margin-top:42px;
       display:flex; gap:14px; flex-wrap:wrap; justify-content:center;
+    }
+    /* Hero-only bubble button — overrides .btn-light when inside .hero */
+    .hero .btn-light {
+      font-family:'Modak', system-ui, sans-serif;
+      font-size:18px; letter-spacing:.18em; text-transform:uppercase; font-weight:400;
+      padding:18px 44px;
+      background:var(--champagne);
+      color:var(--espresso);
+      border:none;
+      border-radius:999px;
+      text-shadow:0 2px 0 rgba(255,255,255,.25);
+      box-shadow:
+        0 4px 0 #a78759,
+        0 12px 28px rgba(0,0,0,.35),
+        inset 0 2px 0 rgba(255,255,255,.25);
+      transition:transform .25s ease, box-shadow .25s ease, background .25s ease;
+    }
+    .hero .btn-light:hover {
+      background:var(--champagne-lt);
+      transform:translateY(-2px);
+      box-shadow:
+        0 6px 0 #a78759,
+        0 16px 32px rgba(0,0,0,.4),
+        inset 0 2px 0 rgba(255,255,255,.3);
+    }
+    .hero .btn-light:active {
+      transform:translateY(2px);
+      box-shadow:
+        0 1px 0 #a78759,
+        0 4px 12px rgba(0,0,0,.3),
+        inset 0 2px 0 rgba(255,255,255,.2);
     }
     .btn-light {
       font-size:10.5px; letter-spacing:.18em; text-transform:uppercase; font-weight:600;
@@ -1187,15 +1219,6 @@
       });
     });
   }
-
-  /* ── REELS GRID STAGGER ───────────────────────────── */
-  gsap.fromTo('.reel-card',
-    { opacity: 0, y: 40 },
-    {
-      scrollTrigger: { trigger: '.reels-grid', start: 'top 88%', toggleActions: 'play none none none' },
-      opacity: 1, y: 0, duration: 0.85, stagger: 0.14, ease: 'power3.out'
-    }
-  );
 
   /* ── NEWSLETTER SUBMIT ────────────────────────────── */
   function handleSubscribe(e) {
